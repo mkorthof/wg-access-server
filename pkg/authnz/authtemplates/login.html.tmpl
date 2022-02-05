@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="icon" href="data:image/ico;base64,AAABAAEAEBAAAAEAIABoBAAAFgAAACgAAAAQAAAAIAAAAAEAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAQAAAAEYFoQSGReHcxkXh7xnZ5/oxsbX/N/f6fzMzNvna2uhuRkXh20YFoMOAAAAAQAAAAEAAAABAAAAAQAAAAEZF4dVGReH7hkXh/9qaqD/9vb5///////6+vz///////T09/9jYp3/GReH6BkXhkYAAAABAAAAAQAAAAEZF4ZVGReH/hkXh/8ZF4f/0NDe//7+/v+RkLb/GBeH/5iXuv//////ycna/xkXh/8ZF4f6GReGRAAAAAEYFoQSGReH7xkXh/+Dg67/Q0KS/+jo7//p6fD/GReH/xkXh/8ZF4f/7u71/+Xl7P8ZF4f/GReH/xkXh+QXFoILGReGdhkXh/8ZF4f/oqK///7+/v/g4Or/+/v9/2xsov8ZF4f/dXWn//39/v/S0t//GReH/xkXh/8ZF4f/GReHZxkXh8AZF4f/GReH/xkXh/9zcqX/wcHX//z8/f/6+vz/zs7d/93d6f/6+vz/e3up/xkXh/8ZF4f/GReH/xkXh7YZF4ftGReH/xkXh/8ZF4f/trbM///////Z2ef/3t7o//z8/f/+/v7/urrR/xkXh/8ZF4f/GReH/xkXh/8ZF4fnGReH/hkXh/8ZF4f/HBqI//b2+f/r6/H/SEeT/yAeif+/v9b/6urx//////+EhK7/GReH/xkXh/8ZF4f/GReH/RkXh/cZF4f/GReH/yUki///////09Pf/xkXh/8ZF4f/w8PV/+Tk7f/29vn/z8/d/xkXh/8ZF4f/GReH/xkXh/wZF4fVGReH/xkXh/8ZF4f/5OTt//v7/f+trcf/pqXC//j4+v/09Pj/6urx/+Xl7P8ZF4f/GReH/xkXh/8ZF4flGReHmxkXh/8ZF4f/GReH/3Rzpv/y8vb////////////8/P3/1dTj///////IyNn/GReH/xkXh/8ZF4f/GReHsxkXhkIZF4f/GReH/xkXh/8ZF4f/QUCQ/5ycu/+mpsH/wsLW//39/v/l5e3/TUyV/xkXh/8ZF4f/GReH/xkXh2AFBTkBGReHwxkXh/8ZF4f/GReH/xwaiP9YV53/29vn///////IyNn/NTSN/xkXh/8ZF4f/GReH/xkXh9wWFX8HAAAAARkXhSQZF4fsGReH/xkXh/8wL4z/wMDT////////////yMfY/6mpxv93dqn/GReH/xkXh/YZFoY4AAAAAQAAAAEAAAABGRaGLBkXh9kZF4f/GReH/7Cwyv/Z2eX//v7+//n5+//d3Of/urnO/xkXh94ZF4Y5AAAAAQAAAAEAAAABAAAAAQAAAAEWFYAHGBeGZBkXh7geHIjpjIu3/cnJ3PuyscnhKCeLshgXhmEWFYAIAAAAAQAAAAEAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=="/>
+    <meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no">
+    <meta name="theme-color" content="#000000">
+    <meta name="description" content="Website for the wg-access-server">
+    <title>WireGuard Access Server - Sign In</title>
+	<style data-jss="" data-meta="WgLogin">
+		* {
+			font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+			font-size: 16px;
+            font-style: normal;
+            font-display: swap;
+            font-weight: 400;
+			-webkit-font-smoothing: antialiased;
+			-moz-osx-font-smoothing: grayscale;
+		}
+
+		body {
+            margin: 0;
+            background-color: #fafafa;
+		}
+
+        .logo {
+            float: left;
+            padding-left: 5px;
+            padding-right: 10px;
+        }
+
+        .title {
+            font-size: 24px;
+            padding-top: 5px;
+        }
+
+		.filter-gray {
+			filter: invert(27%) sepia(31%) saturate(30%) hue-rotate(358deg) brightness(98%) contrast(93%);
+		}
+
+		.filter-white {
+			filter: invert(100%) sepia(96%) saturate(15%) hue-rotate(212deg) brightness(104%) contrast(104%);
+		}
+
+		.form {
+			position: absolute;
+			top: 40%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			background-color: #fff;
+			width: 285px;
+			padding: 40px;
+			box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+            border-radius: 4px;
+		}
+
+		.form h2 {
+			margin: 0 0 35px;
+			text-align: center;
+			line-height: 1;
+			color: black;
+			font-size: 22px;
+			font-weight: 400;
+		}
+
+		.form input {
+			outline: none;
+			display: block;
+			width: 100%;
+			padding: 10px 15px;
+			border: 1px solid #ccc;
+			color: #ccc;
+			box-sizing: border-box;
+		}
+
+		.form a {
+			display: block;
+		}
+
+		.form > * {
+			margin: 0 0 20px;
+		}
+
+		.form > *:last-child {
+			margin-bottom: 0px;
+		}
+
+		.form input:focus {
+			color: #333;
+			border: 1px solid #44c4e7;
+		}
+
+		.form button {
+			cursor: pointer;
+			background: #3f51b5;
+			width: 100%;
+			padding: 10px 15px;
+			border: 0;
+			color: #fff;
+			/* text-transform: capitalize; */
+            text-transform: uppercase;
+            border-radius: 4px;
+		}
+
+		.form button:hover {
+			/* background: #369cb8; */
+            background-color: #303f9f;
+		}
+
+		.form hr {
+			position: relative;
+			width: 55%;
+			margin-left: auto;
+			margin-right: auto;
+			overflow: visible;
+			background-color: #4d4d4d;
+		}
+
+		.form hr:after {
+			content: "";
+			position: absolute;
+			left: 50%;
+			top: 50%;
+			transform: translate(-50%, -50%);
+			width: 4px;
+			height: 4px;
+			background-color: #4d4d4d;
+			border-radius: 50%;
+		}
+    </style>
+
+	<style>
+        /*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8uL3NyYy9pbmRleC5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDRSxxQkFBcUI7RUFDckIsa0JBQWtCO0VBQ2xCLGtCQUFrQjtFQUNsQixnQkFBZ0I7RUFDaEI7Ozs7MERBSThEO0FBQ2hFOztBQUVBO0VBQ0UscUJBQXFCO0VBQ3JCLGtCQUFrQjtFQUNsQixrQkFBa0I7RUFDbEIsZ0JBQWdCO0VBQ2hCOzs7OzBEQUk4RDtBQUNoRTs7QUFFQTtFQUNFLFNBQVM7RUFDVCxtQ0FBbUM7RUFDbkMsa0NBQWtDO0FBQ3BDIiwic291cmNlc0NvbnRlbnQiOlsiQGZvbnQtZmFjZSB7XG4gIGZvbnQtZmFtaWx5OiAnUm9ib3RvJztcbiAgZm9udC1zdHlsZTogbm9ybWFsO1xuICBmb250LWRpc3BsYXk6IHN3YXA7XG4gIGZvbnQtd2VpZ2h0OiA0MDA7XG4gIHNyYzpcbiAgICBsb2NhbCgnUm9ib3RvJyksXG4gICAgbG9jYWwoJ1JvYm90by1SZWd1bGFyJyksXG4gICAgdXJsKCcuLi9wdWJsaWMvcm9ib3RvL3JvYm90by1sYXRpbi00MDAud29mZjInKSBmb3JtYXQoJ3dvZmYyJyksXG4gICAgdXJsKCcuLi9wdWJsaWMvcm9ib3RvL3JvYm90by1sYXRpbi00MDAud29mZicpIGZvcm1hdCgnd29mZicpO1xufVxuXG5AZm9udC1mYWNlIHtcbiAgZm9udC1mYW1pbHk6ICdSb2JvdG8nO1xuICBmb250LXN0eWxlOiBub3JtYWw7XG4gIGZvbnQtZGlzcGxheTogc3dhcDtcbiAgZm9udC13ZWlnaHQ6IDUwMDtcbiAgc3JjOlxuICAgIGxvY2FsKCdSb2JvdG8gTWVkaXVtICcpLFxuICAgIGxvY2FsKCdSb2JvdG8tTWVkaXVtJyksXG4gICAgdXJsKCcuLi9wdWJsaWMvcm9ib3RvL3JvYm90by1sYXRpbi01MDAud29mZjInKSBmb3JtYXQoJ3dvZmYyJyksXG4gICAgdXJsKCcuLi9wdWJsaWMvcm9ib3RvL3JvYm90by1sYXRpbi01MDAud29mZicpIGZvcm1hdCgnd29mZicpO1xufVxuXG5ib2R5IHtcbiAgbWFyZ2luOiAwO1xuICAtd2Via2l0LWZvbnQtc21vb3RoaW5nOiBhbnRpYWxpYXNlZDtcbiAgLW1vei1vc3gtZm9udC1zbW9vdGhpbmc6IGdyYXlzY2FsZTtcbn1cbiJdLCJzb3VyY2VSb290IjoiIn0= */
+    </style>
+
+    <style data-jss="" data-meta="MuiAppBar">
+        .MuiAppBar-root {
+            width: 100%;
+            display: flex;
+            z-index: 1100;
+            box-sizing: border-box;
+            flex-shrink: 0;
+            flex-direction: column;
+        }
+
+        .MuiAppBar-positionFixed {
+            top: 0;
+            left: auto;
+            right: 0;
+            position: fixed;
+        }
+
+        @media print {
+            .MuiAppBar-positionFixed {
+                position: absolute;
+            }
+        }
+
+        .MuiAppBar-positionAbsolute {
+            top: 0;
+            left: auto;
+            right: 0;
+            position: absolute;
+        }
+
+        .MuiAppBar-positionSticky {
+            top: 0;
+            left: auto;
+            right: 0;
+            position: sticky;
+        }
+
+        .MuiAppBar-positionStatic {
+            position: static;
+        }
+
+        .MuiAppBar-positionRelative {
+            position: relative;
+        }
+
+        .MuiAppBar-colorDefault {
+            color: rgba(0, 0, 0, 0.87);
+            background-color: #f5f5f5;
+        }
+
+        .MuiAppBar-colorPrimary {
+            color: #fff;
+            background-color: #3f51b5;
+        }
+        .MuiAppBar-colorSecondary {
+            color: #fff;
+            background-color: #f50057;
+        }
+            .MuiAppBar-colorInherit {
+            color: inherit;
+        }
+        .MuiAppBar-colorTransparent {
+            color: inherit;
+            background-color: transparent;
+        }
+    </style>
+
+    <style data-jss="" data-meta="MuiPaper">
+        .MuiPaper-root {
+            color: rgba(0, 0, 0, 0.87);
+            transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+            background-color: #fff;
+        }
+
+        .MuiPaper-rounded {
+            border-radius: 4px;
+        }
+
+        .MuiPaper-outlined {
+            border: 1px solid rgba(0, 0, 0, 0.12);
+        }
+
+        .MuiPaper-elevation4 {
+            box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2), 0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);
+        }
+    </style>
+
+    <style data-jss="" data-meta="MuiAppBar">
+        .MuiAppBar-root {
+            width: 100%;
+            display: flex;
+            z-index: 1100;
+            box-sizing: border-box;
+            flex-shrink: 0;
+            flex-direction: column;
+        }
+
+        .MuiAppBar-positionFixed {
+            top: 0;
+            left: auto;
+            right: 0;
+            position: fixed;
+        }
+
+        @media print {
+            .MuiAppBar-positionFixed {
+                position: absolute;
+            }
+        }
+
+        .MuiAppBar-positionAbsolute {
+            top: 0;
+            left: auto;
+            right: 0;
+            position: absolute;
+        }
+
+        .MuiAppBar-positionSticky {
+            top: 0;
+            left: auto;
+            right: 0;
+            position: sticky;
+        }
+
+        .MuiAppBar-positionStatic {
+            position: static;
+        }
+
+        .MuiAppBar-positionRelative {
+            position: relative;
+        }
+
+        .MuiAppBar-colorDefault {
+            color: rgba(0, 0, 0, 0.87);
+            background-color: #f5f5f5;
+        }
+
+        .MuiAppBar-colorPrimary {
+            color: #fff;
+            background-color: #3f51b5;
+        }
+
+        .MuiAppBar-colorSecondary {
+            color: #fff;
+            background-color: #f50057;
+        }
+
+        .MuiAppBar-colorInherit {
+            color: inherit;
+        }
+
+        .MuiAppBar-colorTransparent {
+            color: inherit;
+            background-color: transparent;
+        }
+    </style>
+
+    <style data-jss="" data-meta="MuiToolbar">
+        .MuiToolbar-root {
+            display: flex;
+            position: relative;
+            align-items: center;
+        }
+
+        .MuiToolbar-gutters {
+            padding-left: 16px;
+            padding-right: 16px;
+        }
+
+        @media (min-width:600px) {
+            .MuiToolbar-gutters {
+                padding-left: 24px;
+                padding-right: 24px;
+            }
+        }
+
+        .MuiToolbar-regular {
+            min-height: 56px;
+        }
+
+        @media (min-width:0px) and (orientation: landscape) {
+            .MuiToolbar-regular {
+                min-height: 48px;
+            }
+        }
+
+        @media (min-width:600px) {
+            .MuiToolbar-regular {
+                min-height: 64px;
+            }
+        }
+
+        .MuiToolbar-dense {
+            min-height: 48px;
+        }
+    </style>
+
+    <style data-jss="" data-meta="MuiTypography">
+        .MuiTypography-root {
+            margin: 0;
+        }
+
+        .MuiTypography-h6 {
+            font-size: 1.25rem;
+            font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+            font-weight: 500;
+            line-height: 1.6;
+            letter-spacing: 0.0075em;
+        }
+    </style>
+
+    <style data-jss="" data-meta="makeStyles">
+        .makeStyles-title-1 {
+            flex-grow: 1;
+        }
+    </style>
+</head>
+<body>
+    <div id="root">
+        <header class="MuiPaper-root MuiAppBar-root MuiAppBar-positionStatic MuiAppBar-colorPrimary MuiPaper-elevation4">
+            <div class="MuiToolbar-root MuiToolbar-regular MuiToolbar-gutters">
+                <h1 class="MuiTypography-root makeStyles-title-1 MuiTypography-h6">
+                    <div aria-current="page" class="MuiTypography-root MuiLink-root MuiLink-underlineHover MuiTypography-colorInherit active">
+                            <div class="title">
+                                <div class="logo">
+                                    <img width="40" class="filter-white" src="data:image/svg+xml;base64,PHN2ZyByb2xlPSJpbWciIHZpZXdCb3g9IjAgMCAyNCAyNCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48dGl0bGU+V2lyZUd1YXJkIGljb248L3RpdGxlPjxwYXRoIGQ9Ik0yMy45OCAxMS42NDVTMjQuNTMzIDAgMTEuNzM1IDBDLjQxOCAwIC4wNjQgMTEuMTcuMDY0IDExLjE3Uy0xLjYgMjQgMTEuOTk3IDI0QzI1LjA0IDI0IDIzLjk4IDExLjY0NSAyMy45OCAxMS42NDV6TTguMTU1IDcuNTc2YzIuNC0xLjQ3IDUuNDY5LS41NzEgNi42MTggMS42MzguMjE4LjQxOS4yNDYgMS4wNjMuMTA4IDEuNTAzLS40NzcgMS41MTYtMS42MDEgMi4zNjYtMy4xNDUgMi43MjguNDU1LS4zOS44MTctLjgzMi45MzMtMS40NDJhMi4xMTIgMi4xMTIgMCAwIDAtLjM2NC0xLjY3NyAyLjE0IDIuMTQgMCAwIDAtMi40NjUtLjc1Yy0uOTUuMzYtMS40NyAxLjIyOC0xLjM3NyAyLjI5NC4wODcuOTkuODM5IDEuNjMyIDIuMjQ1IDEuODc2LS4yMS4xMTEtLjM3Mi4xOTMtLjUzLjI4MWE1LjExMyA1LjExMyAwIDAgMC0xLjY0NCAxLjQzYy0uMTQzLjE5Mi0uMjQuMjA4LS40NTguMDc1LTIuODI3LTEuNzI5LTMuMDA5LTYuMDY3LjA3OC03Ljk1NnpNNi4wNCAxOC4yNThjLS40NTUuMTE2LS44OTUuMjg2LTEuMzU5LjQzOC4yMjctMS41MzIgMi4wMjEtMi45NDMgMy41MzktMi43ODJhMy45MSAzLjkxIDAgMCAwLS43NCAyLjA3MmMtLjUwNC4wOTMtLjk4LjE1NS0xLjQ0LjI3MnpNMTUuNzAzIDMuM2MuNDQ4LjAxNy44OTguMDEgMS4zNDcuMDJhMi4zMjQgMi4zMjQgMCAwIDEgLjMzNC4wNDcgMy4yNDkgMy4yNDkgMCAwIDEtLjM0LjQzNGMtLjE2LjE1LS4zNDEuMjk2LS41NzMuMDY5LS4wNTUtLjA1NS0uMTg3LS4wNDItLjI4My0uMDQ0LS40NDctLjAwNS0uODk0LS4wMi0xLjM0LS4wMDNhOC4zMjMgOC4zMjMgMCAwIDAtMS4xNTQuMTE4Yy0uMDcyLjAxMy0uMTc4LjI1LS4xNDYuMzM4LjA3OC4yMDcuMTkxLjQzNS4zNTkuNTY3LjYxOS40OSAxLjI3Ny45MjggMS45IDEuNDEzLjYwNC40NzIgMS4xNjcuOTkgMS41MSAxLjcuNDQ2LjkyOC40NiAxLjkuMjY3IDIuODc3LS4zMjIgMS42My0xLjE0NyAyLjk4LTIuNDgzIDMuOTYyLS41MzguMzk1LTEuMjA1LjYyLTEuODIxLjkwMy0uNTQzLjI1LTEuMS40NjUtMS42NDQuNzEyLS45OC40NDYtMS41MyAxLjUxLTEuMzY5IDIuNjE1LjE0OSAxLjAxNSAxLjA0IDEuODYyIDIuMDU5IDIuMDM3IDEuMjIzLjIxIDIuNDg2LS41ODYgMi43ODUtMS44My4zMzYtMS4zOTctLjQyMy0yLjY0Ni0xLjg0NS0zLjAyNGwtLjI1Ni0uMDY2Yy4zOC0uMTcuNzA4LS4yOTEgMS4wMTItLjQ1OHEuNzkzLS40MzcgMS41NTgtLjkyNWMuMTUtLjA5Ni4yMzEtLjA5Ni4zNi4wMTQuOTc3Ljg0NiAxLjU2IDEuODk4IDEuNzI0IDMuMTg3LjI3IDIuMTM1LS43NCA0LjA5Ni0yLjY0NiA1LjEwMS0yLjk0OCAxLjU1NS02LjU1Ny0uMjE1LTcuMjA4LTMuNDg0LS41NTgtMi44IDEuNDE4LTUuMzQgMy43OTctNS44MyAxLjAyMy0uMjExIDEuOTU4LS42MzcgMi42ODUtMS40MjUuNDctLjUwOC42OTctLjk0NC43NzUtMS4xNDFhMy4xNjUgMy4xNjUgMCAwIDAgLjIxNy0xLjE1OCAyLjcxIDIuNzEgMCAwIDAtLjIzNy0uOTkyYy0uMjQ4LS41NjYtMS4yLTEuNDY2LTEuNDM1LTEuNjU2bC0yLjI0LTEuNzU0Yy0uMDc5LS4wNjUtLjE2OC0uMDYtLjM2LS4wNDctLjIzLjAxNi0uODE1LjA0OC0xLjA2Ny0uMDE4LjIwNC0uMTU1Ljc2LS4zOCAxLS41Ni0uNzI2LS40OS0xLjU1NC0uMzE0LTIuMzE1LS40Ni4xNzYtLjMyOCAxLjA0Ni0uODMxIDEuNTQxLS44ODhhNy4zMjMgNy4zMjMgMCAwIDAtLjEzNS0uODIyYy0uMDMtLjExMS0uMTU0LS4yMi0uMjYzLS4yODMtLjI2Mi0uMTU0LS41NDEtLjI4MS0uODQzLS40MzRhMS43NTUgMS43NTUgMCAwIDEgLjkwNi0uMjggMy4zODUgMy4zODUgMCAwIDEgLjkwOC4wODhjLjU0LjEyMy45Ny4wNDIgMS4zOTktLjMyNC0uMzM4LS4xMzYtLjY3Ni0uMjYtMS4wMDMtLjQwN2E5Ljg0MyA5Ljg0MyAwIDAgMS0uOTQyLS40OTNjLjg1LjExOCAxLjY3MS40MzcgMi41NC4zMmwuMDIyLS4xMTgtMi4wMTgtLjQ3YzEuMjAzLS4xMSAyLjMyMy0uMTI4IDMuMzg0LjM4OC4yOTkuMTQ2LjYxLjI2Ni44OTcuNDMyLjE0LjA4LjIzMy4yNC4zNDguMzY1LjA5LjA5OC4xNjQuMjMuMjc2LjI5LjQyNC4yMjUuODkuMjM0IDEuMzY2LjIyM2wuMDEtLjE2Yy40NzkuMTUgMS4wMTcuNzAyIDEuMDE3IDEuMTA1LS43NzYgMC0xLjU1LS4wMDMtMi4zMjUuMDA0LS4wODMgMC0uMTY1LjA2MS0uMjQ3LjA5NC4wNzguMDQ2LjE1NS4xMjguMjM1LjEzMXogTTE0LjcwMyAyLjE1M2EuMTE4LjExOCAwIDAgMC0uMDE2LjE5LjE3OS4xNzkgMCAwIDAgLjI0Ni4wNjVjLjA3NS0uMDM4LjE0OC0uMDc4LjIzOC0uMTI1LS4wNzItLjA2Mi0uMTMtLjExNC0uMTktLjE2My0uMTA2LS4wODctLjE5My0uMDMyLS4yNzguMDMzeiIvPjwvc3ZnPg=="/>
+                                    <!-- img width="40" class="filter-white" src="/logo.svg"/ -->
+                                </div>
+                                WireGuard Access Server
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                <div>
+            </div>
+        </header>
+    </div>
+	<section class="form">
+		<h2>Sign In</h2>
+
+            {{range $i, $p := .Providers}}
+                <a href="/signin/{{$i}}">
+                    <button>{{$p.Type}}</button>
+                </a>
+            {{end}}
+
+			<!--
+			<form autocomplete="off">
+				<input placeholder="Username" type="text" id="username"></input>
+				<input placeholder="Password" type="password" id="password"></input>
+				<button id="submit">Login</button>
+			</form>
+			<hr />
+			-->
+
+	</section>
+</body>
+</html>
