@@ -1,7 +1,7 @@
 package authtemplates
 
 import (
-	//"embed"
+	_ "embed"
 	"html/template"
 	"io"
 
@@ -37,70 +37,17 @@ type LoginPage struct {
 	Providers []*authruntime.Provider
 }
 
-type servecmd struct {
-	AppConfig config.AppConfig
-}
-
-type ApiServices struct {
-	Config *config.AppConfig
-	Wg     wgembed.WireGuardInterface
-}
-
-//type AppConfig = config.AppConfig
-
-// if we got an embedded file, use it instead of the const below
+// if we got embedded file, use that instead of the var below
 func RenderLoginPage(w io.Writer, data LoginPage) error {
-	/*
-		var loginContent string
-		if (config.LoginFile != nil) {
-			//loginContent = loginFile
-			loginContent = config.LoginFile
-		} else {
-			loginContent = loginPage
-		}
-		tpl, err := template.New("login-page").Parse(loginContent)
-		if err != nil {
-			return err
-		}
-	*/
-
-	//var tpl = template.Must(template.New("name").Parse("text"))
-	//template.New("layout.html").ParseFS(files, "layout.html", file))
-
-	//cmd := &servecmd{}
-	//conf := cmd.ReadConfig()
-
-	//t := &cmd.AppConfig
-	//t := kingpin.Parse()
-
-	t := config.AppConfig{}
-	/*
-		t := &services.ApiServices{
-			Config: &config.AppConfig{},
-		}
-	*/
-
-	//logrus.Info("DEBUG: %T", AppConfig.EmbedLoginTmpl)
-	//logrus.Info("DEBUG:", fmt.Sprintf("%+v", cmd.AppConfig))
-	//logrus.Info("DEBUG: %T", conf)
-	//logrus.Info("DEBUG: %T", serve)
-	//logrus.Info("DEBUG: %T", config)
-	//logrus.Info("DEBUG: %T", t)
-	logrus.Info("DEBUG: %+v", t)
-	logrus.Info("DEBUG: %T")
-	logrus.Info("DEBUG:")
-	//logrus.Info("DEBUG: %T", cmd.AppConfig.EmbedLoginTmpl)
-	//os.Exit(0)
-
-	tpl := template.Must(template.New("login-page").Parse(loginPage))
-
-	if true {
-		def := tpl
-		tpl, err := template.ParseFS(tmpl.GetFS(), "login.html.tmpl")
-		if err != nil {
-			tpl = def
-		}
-		return tpl.Execute(w, data)
+	var loginContent string
+	if (loginFile != nil) {
+		loginContent = string(loginFile)
+	} else {
+		loginContent = loginPage
+	}
+	tpl, err := template.New("login-page").Parse(loginContent)
+	if err != nil {
+		return err
 	}
 	return tpl.Execute(w, data)
 }
