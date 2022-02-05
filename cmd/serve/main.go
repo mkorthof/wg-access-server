@@ -37,6 +37,7 @@ func Register(app *kingpin.Application) *servecmd {
 	cli.Flag("config", "Path to a wg-access-server config file").Envar("WG_CONFIG").StringVar(&cmd.ConfigFilePath)
 	cli.Flag("admin-username", "Admin username (defaults to admin)").Envar("WG_ADMIN_USERNAME").Default("admin").StringVar(&cmd.AppConfig.AdminUsername)
 	cli.Flag("admin-password", "Admin password (provide plaintext, stored in-memory only)").Envar("WG_ADMIN_PASSWORD").StringVar(&cmd.AppConfig.AdminPassword)
+	cli.Flag("addr", "The address that the web ui server will listen on").Envar("WG_ADDR").Default("0.0.0.0").StringVar(&cmd.AppConfig.Address)
 	cli.Flag("port", "The port that the web ui server will listen on").Envar("WG_PORT").Default("8000").IntVar(&cmd.AppConfig.Port)
 	cli.Flag("external-host", "The external origin of the server (e.g. https://mydomain.com)").Envar("WG_EXTERNAL_HOST").StringVar(&cmd.AppConfig.ExternalHost)
 	cli.Flag("storage", "The storage backend connection string").Envar("WG_STORAGE").Default("memory://").StringVar(&cmd.AppConfig.Storage)
@@ -204,7 +205,7 @@ func (cmd *servecmd) Run() {
 	publicRouter := router
 
 	// Listen
-	address := fmt.Sprintf(":%d", conf.Port)
+	address := fmt.Sprintf("%s:%d", conf.Address, conf.Port)
 	srv := &http.Server{
 		Addr:    address,
 		Handler: publicRouter,

@@ -13,6 +13,9 @@ type AppConfig struct {
 	AdminUsername string `yaml:"adminUsername"`
 	// Set the superadmin password (required)
 	AdminPassword string `yaml:"adminPassword"`
+	// Addr sets the address (ip/port) that the web UI will listen on.
+	// Defaults to 0.0.0.0
+	Address string `yaml:"addr"`
 	// Port sets the port that the web UI will listen on.
 	// Defaults to 8000
 	Port int `yaml:"port"`
