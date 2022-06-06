@@ -2,20 +2,20 @@ package services
 
 import (
 	"context"
-	"time"
+
+	"github.com/freifunkMUC/wg-access-server/internal/devices"
+	"github.com/freifunkMUC/wg-access-server/internal/storage"
+	"github.com/freifunkMUC/wg-access-server/pkg/authnz/authsession"
+	"github.com/freifunkMUC/wg-access-server/proto/proto"
 
 	"github.com/grpc-ecosystem/go-grpc-middleware/logging/logrus/ctxlogrus"
-	"github.com/place1/wg-access-server/pkg/authnz/authsession"
-
-	"github.com/golang/protobuf/ptypes/empty"
-	"github.com/place1/wg-access-server/internal/devices"
-	"github.com/place1/wg-access-server/internal/storage"
-	"github.com/place1/wg-access-server/proto/proto"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
+	"google.golang.org/protobuf/types/known/emptypb"
 )
 
 type DeviceService struct {
+	proto.UnimplementedDevicesServer
 	DeviceManager *devices.DeviceManager
 }
 
@@ -50,7 +50,7 @@ func (d *DeviceService) ListDevices(ctx context.Context, req *proto.ListDevicesR
 	}, nil
 }
 
-func (d *DeviceService) DeleteDevice(ctx context.Context, req *proto.DeleteDeviceReq) (*empty.Empty, error) {
+func (d *DeviceService) DeleteDevice(ctx context.Context, req *proto.DeleteDeviceReq) (*emptypb.Empty, error) {
 	user, err := authsession.CurrentUser(ctx)
 	if err != nil {
 		return nil, status.Errorf(codes.PermissionDenied, "not authenticated")
@@ -71,7 +71,7 @@ func (d *DeviceService) DeleteDevice(ctx context.Context, req *proto.DeleteDevic
 		return nil, status.Errorf(codes.Internal, "failed to delete device")
 	}
 
-	return &empty.Empty{}, nil
+	return &emptypb.Empty{}, nil
 }
 
 func (d *DeviceService) ListAllDevices(ctx context.Context, req *proto.ListAllDevicesReq) (*proto.ListAllDevicesRes, error) {
@@ -116,7 +116,7 @@ func mapDevice(d *storage.Device) *proto.Device {
 		 * silent as possible.
 		 *
 		 */
-		Connected: isConnected(d.LastHandshakeTime),
+		Connected: d.LastHandshakeTime != nil && devices.IsConnected(*d.LastHandshakeTime),
 	}
 }
 
@@ -126,11 +126,4 @@ func mapDevices(devices []*storage.Device) []*proto.Device {
 		items = append(items, mapDevice(d))
 	}
 	return items
-}
-
-func isConnected(lastHandshake *time.Time) bool {
-	if lastHandshake == nil {
-		return false
-	}
-	return lastHandshake.After(time.Now().Add(-3 * time.Minute))
 }

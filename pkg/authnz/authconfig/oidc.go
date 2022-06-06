@@ -8,12 +8,13 @@ import (
 	"strings"
 	"time"
 
+	"github.com/freifunkMUC/wg-access-server/pkg/authnz/authruntime"
+	"github.com/freifunkMUC/wg-access-server/pkg/authnz/authsession"
+	"github.com/freifunkMUC/wg-access-server/pkg/authnz/authutil"
+
 	"github.com/coreos/go-oidc"
 	"github.com/gorilla/mux"
 	"github.com/pkg/errors"
-	"github.com/place1/wg-access-server/pkg/authnz/authruntime"
-	"github.com/place1/wg-access-server/pkg/authnz/authsession"
-	"github.com/place1/wg-access-server/pkg/authnz/authutil"
 	"github.com/sirupsen/logrus"
 	"golang.org/x/oauth2"
 	"gopkg.in/Knetic/govaluate.v2"
@@ -98,11 +99,15 @@ func (c *OIDCConfig) callbackHandler(runtime *authruntime.ProviderRuntime, oauth
 		}
 
 		code := r.FormValue("code")
-		token, _ := oauthConfig.Exchange(r.Context(), code)
+
+		token, err := oauthConfig.Exchange(r.Context(), code)
+		if err != nil {
+			panic(errors.Wrap(err, "Unable to exchange tokens"))
+		}
+
 		info, err := provider.UserInfo(r.Context(), oauthConfig.TokenSource(r.Context(), token))
 		if err != nil {
-			http.Error(w, err.Error(), http.StatusBadRequest)
-			return
+			panic(errors.Wrap(err, "Unable to get user info"))
 		}
 
 		if msg, valid := verifyEmailDomain(c.EmailDomains, info.Email); !valid {
@@ -134,14 +139,18 @@ func (c *OIDCConfig) callbackHandler(runtime *authruntime.ProviderRuntime, oauth
 			}
 		}
 
+		identity := &authsession.Identity{
+			Provider: c.Name,
+			Subject:  info.Subject,
+			Email:    info.Email,
+			Claims:   *claims,
+		}
+		if name, ok := oidcProfileData["name"].(string); ok {
+			identity.Name = name
+		}
+
 		err = runtime.SetSession(w, r, &authsession.AuthSession{
-			Identity: &authsession.Identity{
-				Provider: c.Name,
-				Subject:  info.Subject,
-				Email:    info.Email,
-				Name:     oidcProfileData["name"].(string),
-				Claims:   *claims,
-			},
+			Identity: identity,
 		})
 		if err != nil {
 			http.Error(w, err.Error(), http.StatusUnauthorized)

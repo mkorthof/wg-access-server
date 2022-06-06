@@ -1,7 +1,7 @@
 package authconfig
 
 import (
-	"github.com/place1/wg-access-server/pkg/authnz/authruntime"
+	"github.com/freifunkMUC/wg-access-server/pkg/authnz/authruntime"
 )
 
 type AuthConfig struct {
@@ -12,6 +12,11 @@ type AuthConfig struct {
 
 func (c *AuthConfig) IsEnabled() bool {
 	return c.OIDC != nil || c.Gitlab != nil || c.Basic != nil
+}
+
+func (c *AuthConfig) DesiresSigninPage() bool {
+	// Basic auth is the only that truly needs the signin button
+	return c.Basic != nil
 }
 
 func (c *AuthConfig) Providers() []*authruntime.Provider {

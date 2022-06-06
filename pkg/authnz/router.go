@@ -8,11 +8,11 @@ import (
 	"github.com/grpc-ecosystem/go-grpc-middleware/logging/logrus/ctxlogrus"
 	"github.com/pkg/errors"
 
-	"github.com/place1/wg-access-server/pkg/authnz/authconfig"
-	"github.com/place1/wg-access-server/pkg/authnz/authruntime"
-	"github.com/place1/wg-access-server/pkg/authnz/authsession"
-	"github.com/place1/wg-access-server/pkg/authnz/authtemplates"
-	"github.com/place1/wg-access-server/pkg/authnz/authutil"
+	"github.com/freifunkMUC/wg-access-server/pkg/authnz/authconfig"
+	"github.com/freifunkMUC/wg-access-server/pkg/authnz/authruntime"
+	"github.com/freifunkMUC/wg-access-server/pkg/authnz/authsession"
+	"github.com/freifunkMUC/wg-access-server/pkg/authnz/authtemplates"
+	"github.com/freifunkMUC/wg-access-server/pkg/authnz/authutil"
 
 	"github.com/gorilla/mux"
 	"github.com/gorilla/sessions"
@@ -41,6 +41,11 @@ func New(config authconfig.AuthConfig, claimsMiddleware authsession.ClaimsMiddle
 	}
 
 	router.HandleFunc("/signin", func(w http.ResponseWriter, r *http.Request) {
+		if !config.DesiresSigninPage() && len(providers) == 1 {
+			// we only have one proider, so jump directly to that
+			providers[0].Invoke(w, r, runtime)
+			return
+		}
 		w.WriteHeader(http.StatusOK)
 		_, _ = fmt.Fprint(w, authtemplates.RenderLoginPage(w, authtemplates.LoginPage{
 			Providers: providers,

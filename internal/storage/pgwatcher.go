@@ -3,8 +3,8 @@ package storage
 import (
 	"encoding/json"
 
+	"github.com/freifunkMUC/pg-events/pkg/pgevents"
 	"github.com/pkg/errors"
-	"github.com/place1/pg-events/pkg/pgevents"
 	"github.com/sirupsen/logrus"
 )
 
@@ -13,6 +13,7 @@ type PgWatcher struct {
 }
 
 func NewPgWatcher(connectionString string, table string) (*PgWatcher, error) {
+	logrus.Debug("creating postgres watcher")
 	listener, err := pgevents.OpenListener(connectionString)
 	if err != nil {
 		return nil, errors.Wrap(err, "failed to open pg listener")

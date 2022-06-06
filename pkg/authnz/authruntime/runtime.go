@@ -3,9 +3,10 @@ package authruntime
 import (
 	"net/http"
 
+	"github.com/freifunkMUC/wg-access-server/pkg/authnz/authsession"
+
 	"github.com/gorilla/mux"
 	"github.com/gorilla/sessions"
-	"github.com/place1/wg-access-server/pkg/authnz/authsession"
 )
 
 type Provider struct {

@@ -116,6 +116,7 @@ export declare namespace InfoRes {
 		allowedIps: string,
 		dnsEnabled: boolean,
 		dnsAddress: string,
+		filename: string,
 	}
 }
 
@@ -131,8 +132,7 @@ export class InfoRes extends jspb.Message {
 	}
 
 
-	getPublicKey(): string {
-		return jspb.Message.getFieldWithDefault(this, 1, "");
+	getPublicKey(): string {return jspb.Message.getFieldWithDefault(this, 1, "");
 	}
 
 	setPublicKey(value: string): void {
@@ -147,60 +147,60 @@ export class InfoRes extends jspb.Message {
 		(jspb.Message as any).setWrapperField(this, 2, value);
 	}
 
-	getPort(): number {
-		return jspb.Message.getFieldWithDefault(this, 3, 0);
+	getPort(): number {return jspb.Message.getFieldWithDefault(this, 3, 0);
 	}
 
 	setPort(value: number): void {
 		(jspb.Message as any).setProto3IntField(this, 3, value);
 	}
 
-	getHostVpnIp(): string {
-		return jspb.Message.getFieldWithDefault(this, 4, "");
+	getHostVpnIp(): string {return jspb.Message.getFieldWithDefault(this, 4, "");
 	}
 
 	setHostVpnIp(value: string): void {
 		(jspb.Message as any).setProto3StringField(this, 4, value);
 	}
 
-	getMetadataEnabled(): boolean {
-		return jspb.Message.getFieldWithDefault(this, 5, false);
+	getMetadataEnabled(): boolean {return jspb.Message.getFieldWithDefault(this, 5, false);
 	}
 
 	setMetadataEnabled(value: boolean): void {
 		(jspb.Message as any).setProto3BooleanField(this, 5, value);
 	}
 
-	getIsAdmin(): boolean {
-		return jspb.Message.getFieldWithDefault(this, 6, false);
+	getIsAdmin(): boolean {return jspb.Message.getFieldWithDefault(this, 6, false);
 	}
 
 	setIsAdmin(value: boolean): void {
 		(jspb.Message as any).setProto3BooleanField(this, 6, value);
 	}
 
-	getAllowedIps(): string {
-		return jspb.Message.getFieldWithDefault(this, 7, "");
+	getAllowedIps(): string {return jspb.Message.getFieldWithDefault(this, 7, "");
 	}
 
 	setAllowedIps(value: string): void {
 		(jspb.Message as any).setProto3StringField(this, 7, value);
 	}
 
-	getDnsEnabled(): boolean {
-		return jspb.Message.getFieldWithDefault(this, 8, false);
+	getDnsEnabled(): boolean {return jspb.Message.getFieldWithDefault(this, 8, false);
 	}
 
 	setDnsEnabled(value: boolean): void {
 		(jspb.Message as any).setProto3BooleanField(this, 8, value);
 	}
 
-	getDnsAddress(): string {
-		return jspb.Message.getFieldWithDefault(this, 9, "");
+	getDnsAddress(): string {return jspb.Message.getFieldWithDefault(this, 9, "");
 	}
 
 	setDnsAddress(value: string): void {
 		(jspb.Message as any).setProto3StringField(this, 9, value);
+	}
+
+	getFilename(): string {return jspb.Message.getFieldWithDefault(this, 10, "");
+	}
+
+	setFilename(value: string): void {
+		(jspb.Message as any).setProto3StringField(this, 10, value);
 	}
 
 	serializeBinary(): Uint8Array {
@@ -211,7 +211,8 @@ export class InfoRes extends jspb.Message {
 
 	toObject(): InfoRes.AsObject {
 		let f: any;
-		return {publicKey: this.getPublicKey(),
+		return {
+			publicKey: this.getPublicKey(),
 			host: (f = this.getHost()) && f.toObject(),
 			port: this.getPort(),
 			hostVpnIp: this.getHostVpnIp(),
@@ -220,7 +221,7 @@ export class InfoRes extends jspb.Message {
 			allowedIps: this.getAllowedIps(),
 			dnsEnabled: this.getDnsEnabled(),
 			dnsAddress: this.getDnsAddress(),
-			
+			filename: this.getFilename(),
 		};
 	}
 
@@ -260,6 +261,10 @@ export class InfoRes extends jspb.Message {
 		const field9 = message.getDnsAddress();
 		if (field9.length > 0) {
 			writer.writeString(9, field9);
+		}
+		const field10 = message.getFilename();
+		if (field10.length > 0) {
+			writer.writeString(10, field10);
 		}
 	}
 
@@ -313,6 +318,10 @@ export class InfoRes extends jspb.Message {
 				const field9 = reader.readString()
 				message.setDnsAddress(field9);
 				break;
+			case 10:
+				const field10 = reader.readString()
+				message.setFilename(field10);
+				break;
 			default:
 				reader.skipField();
 				break;
@@ -346,6 +355,7 @@ function InfoResFromObject(obj: InfoRes.AsObject | undefined): InfoRes | undefin
 	message.setAllowedIps(obj.allowedIps);
 	message.setDnsEnabled(obj.dnsEnabled);
 	message.setDnsAddress(obj.dnsAddress);
+	message.setFilename(obj.filename);
 	return message;
 }
 

@@ -49,7 +49,7 @@ func NewSqlStorage(u *url.URL) *SQLStorage {
 	switch u.Scheme {
 	case "postgresql":
 		// handle `postgresql` as the scheme to be compatible with
-		// standar uri style postgresql connection strings (i.e. like psql)
+		// standard uri style postgresql connection strings (i.e. like psql)
 		u.Scheme = "postgres"
 		fallthrough
 	case "postgres":
@@ -124,6 +124,8 @@ func (s *SQLStorage) Open() error {
 			return errors.Wrap(err, "failed to create pg watcher")
 		}
 		s.Watcher = watcher
+	} else if s.sqlType == "mysql" || s.sqlType == "sqlite3" {
+		s.Watcher = NewGormWatcher(db, db.NewScope(&Device{}).TableName())
 	} else {
 		s.Watcher = NewInProcessWatcher()
 	}

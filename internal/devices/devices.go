@@ -6,12 +6,12 @@ import (
 	"sync"
 	"time"
 
-	"github.com/place1/wg-embed/pkg/wgembed"
+	"github.com/freifunkMUC/wg-access-server/internal/network"
+	"github.com/freifunkMUC/wg-access-server/internal/storage"
+	"github.com/freifunkMUC/wg-access-server/pkg/authnz/authsession"
 
+	"github.com/freifunkMUC/wg-embed/pkg/wgembed"
 	"github.com/pkg/errors"
-	"github.com/place1/wg-access-server/internal/network"
-	"github.com/place1/wg-access-server/internal/storage"
-	"github.com/place1/wg-access-server/pkg/authnz/authsession"
 	"github.com/sirupsen/logrus"
 )
 
@@ -277,4 +277,8 @@ func deviceListContains(devices []*storage.Device, publicKey string) bool {
 		}
 	}
 	return false
+}
+
+func IsConnected(lastHandshake time.Time) bool {
+	return lastHandshake.After(time.Now().Add(-3 * time.Minute))
 }
