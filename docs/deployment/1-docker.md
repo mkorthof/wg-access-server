@@ -33,7 +33,28 @@ If you are unable to load the `iptables` kernel modules, you can add the `SYS_MO
 This is not recommended as it essentially gives the container root privileges over the host system and an attacker could easily break out of the container.
 
 The WireGuard module should be loaded automatically, even without `SYS_MODULE` capability or `/lib/modules` mount.
-If it still fails to load, the server automatically falls back to the userspace implementation. 
+If it still fails to load, the server automatically falls back to the userspace implementation.
+
+## IPv6-only (without IPv4)
+
+If you don't want IPv4 inside the VPN network, set `WG_VPN_CIDR=0`.
+
+```bash
+docker run \
+  -it \
+  --rm \
+  --cap-add NET_ADMIN \
+  --device /dev/net/tun:/dev/net/tun \
+  --sysctl net.ipv6.conf.all.disable_ipv6=0 \
+  --sysctl net.ipv6.conf.all.forwarding=1 \
+  -v wg-access-server-data:/data \
+  -e "WG_ADMIN_PASSWORD=$WG_ADMIN_PASSWORD" \
+  -e "WG_WIREGUARD_PRIVATE_KEY=$WG_WIREGUARD_PRIVATE_KEY" \
+  -e "WG_VPN_CIDR=0"
+  -p 8000:8000/tcp \
+  -p 51820:51820/udp \
+  ghcr.io/freifunkmuc/wg-access-server:latest
+```
 
 ## IPv4-only (without IPv6)
 
@@ -54,5 +75,3 @@ docker run \
   -p 51820:51820/udp \
   ghcr.io/freifunkmuc/wg-access-server:latest
 ```
-
-Likewise you can disable IPv4 by setting `WG_VPN_CIDR=0`.

@@ -13,6 +13,8 @@
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
+.idea/*
+*.iml
 
 ### Go ###
 # Binaries for programs and plugins
@@ -67,3 +69,7 @@ website/yarn-error.log*
 website/yarn.lock
 
 __debug_bin
+
+#Certificates
+*.crt
+*.key

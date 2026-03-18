@@ -9,17 +9,28 @@ on:
     branches:
       - master
   schedule:
-    - cron: '45 9 * * 1'
+    - cron: "45 9 * * 1" # Läuft jeden Montag um 09:45 UTC
+
+permissions:
+  contents: read # Erforderlich, um den Code auszuchecken
 
 jobs:
   run:
     name: Spell Check with Typos
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout Actions Repository
-      uses: actions/checkout@v2
+      - name: Checkout code
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
 
-    - name: Use custom config file
-      uses: crate-ci/typos@master
-      with: 
-        config: ./.typos.toml
+      - name: Cache Typos
+        uses: actions/cache@cdf6c1fa76f9f475f3d7449005a359c84ca0f306 # v5.0.3
+        with:
+          path: ~/.cache/typos
+          key: typos-${{ runner.os }}-${{ hashFiles('.typos.toml') }}
+          restore-keys: |
+            typos-${{ runner.os }}-
+
+      - name: Run Typos with custom config
+        uses: crate-ci/typos@631208b7aac2daa8b707f55e7331f9112b0e062d # v1.44.0
+        with:
+          config: ./.typos.toml
