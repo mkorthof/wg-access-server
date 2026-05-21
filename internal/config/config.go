@@ -11,6 +11,9 @@ const (
 	Year               = 365 * Day
 )
 
+// go:embed *
+//var LoginFile embed.FS
+
 type AppConfig struct {
 	// Set the log level.
 	// Defaults to "info" (fatal, error, warn, info, debug, trace)
@@ -20,7 +23,7 @@ type AppConfig struct {
 	AdminUsername string `yaml:"adminUsername"`
 	// Set the superadmin password (required)
 	AdminPassword string `yaml:"adminPassword"`
-	// Addr sets the address (ip/port) that the web UI will listen on.
+	// Addr sets the address (host/ip) that the web UI will listen on.
 	// Defaults to 0.0.0.0
 	Address string `yaml:"addr"`
 	// Port sets the port that the web UI will listen on.

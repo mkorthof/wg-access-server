@@ -1,6 +1,7 @@
 package main
 
 import (
+	//"embed"
 	"fmt"
 	"os"
 	"path/filepath"
@@ -14,6 +15,9 @@ import (
 	"github.com/freifunkMUC/wg-access-server/cmd/migrate"
 	"github.com/freifunkMUC/wg-access-server/cmd/serve"
 )
+
+// go:embed templates
+// var LoginFile embed.FS
 
 var (
 	app      = kingpin.New("wg-access-server", "An all-in-one WireGuard Access Server & VPN solution")

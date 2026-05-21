@@ -23,6 +23,7 @@ COPY ./main.go ./main.go
 COPY ./cmd/ ./cmd/
 COPY ./pkg/ ./pkg/
 COPY ./internal/ ./internal/
+COPY ./tmpl/ ./tmpl/
 COPY ./buildinfo/ ./buildinfo/
 RUN echo "Using: Version: ${VERSION}, Commit: ${COMMIT}"
 RUN go generate buildinfo/buildinfo.go
